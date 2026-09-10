@@ -1,0 +1,19 @@
+services:
+  kulutusseuranta:
+    build: .
+    container_name: kulutusseuranta
+    restart: unless-stopped
+    ports:
+      - "2992:2992"
+    volumes:
+      # Persist database outside container
+      - ./data:/data
+      # Optional: edit instructions.md without rebuilding
+      - ./instructions.md:/app/instructions.md:ro
+    environment:
+      - PORT=2992
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_PATH=/data/property.db
+    env_file:
+      - backend/.env
