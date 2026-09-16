@@ -40,7 +40,7 @@ const heat = {
         tableBody.innerHTML = '';
 
         if (heatData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 40px;">No heat readings found. Add your first reading!</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="13" style="text-align: center; padding: 40px;">No heat readings found. Add your first reading!</td></tr>';
             pagination.classList.add('hidden');
         } else {
             const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -73,6 +73,22 @@ const heat = {
             <td>${reading.virtaamalukema} m³${reading.mittarinvaihto ? '<br><small style="color:var(--text-3)">Vanha: ' + reading.vanha_virtaamalukema + ' m³</small>' : ''}</td>
             <td><span class="${consumptionClass}">${reading.kulutus_lampo > 0 ? reading.kulutus_lampo + ' MWh' : '-'}</span></td>
             <td><span class="${consumptionClass}">${reading.kulutus_virtaama > 0 ? reading.kulutus_virtaama + ' m³' : '-'}</span></td>
+            <td>${(function() {
+                if (reading.calc_monthly_lampo === null || reading.calc_monthly_lampo === undefined) return '-';
+                var tt = 'Mittauspäiviä: ' + reading.calc_days_diff + ', kuukauden pv: ' + reading.calc_month_days + ', ' + reading.calc_daily_rate_lampo + ' MWh/pv';
+                if (reading.calc_is_exact) {
+                    return '<span style="color:var(--text-2);font-size:0.88rem" title="' + tt + '">' + reading.calc_monthly_lampo + ' MWh</span>';
+                }
+                return '<span style="color:#d97706;font-weight:600;font-size:0.88rem" title="' + tt + '">~' + reading.calc_monthly_lampo + ' MWh</span><br><small style="color:var(--text-3);font-size:0.72rem">' + reading.calc_days_diff + '/' + reading.calc_month_days + ' pv</small>';
+            })()}</td>
+            <td>${(function() {
+                if (reading.calc_monthly_virtaama === null || reading.calc_monthly_virtaama === undefined) return '-';
+                var tt = 'Mittauspäiviä: ' + reading.calc_days_diff + ', kuukauden pv: ' + reading.calc_month_days + ', ' + reading.calc_daily_rate_virtaama + ' m³/pv';
+                if (reading.calc_is_exact) {
+                    return '<span style="color:var(--text-2);font-size:0.88rem" title="' + tt + '">' + reading.calc_monthly_virtaama + ' m³</span>';
+                }
+                return '<span style="color:#d97706;font-weight:600;font-size:0.88rem" title="' + tt + '">~' + reading.calc_monthly_virtaama + ' m³</span><br><small style="color:var(--text-3);font-size:0.72rem">' + reading.calc_days_diff + '/' + reading.calc_month_days + ' pv</small>';
+            })()}</td>
             <td>${reading.muuta || '-'}</td>
             <td class="actions-cell">
                 <button onclick="heat.editHeatReading(${reading.id})" class="success">✏️ Edit</button>

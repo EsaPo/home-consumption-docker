@@ -40,7 +40,7 @@ const water = {
         tableBody.innerHTML = '';
 
         if (waterData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;">No water readings found. Add your first reading!</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 40px;">No water readings found. Add your first reading!</td></tr>';
             pagination.classList.add('hidden');
         } else {
             const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -74,6 +74,14 @@ const water = {
             <td>${new Date(reading.lukemapva).toLocaleDateString('fi-FI')}</td>
             <td>${reading.vesilukema} m³${reading.mittarinvaihto ? '<br><small style="color:var(--text-3)">Vanha: ' + reading.vanha_lukema + ' m³</small>' : ''}</td>
             <td><span class="${consumptionClass}">${reading.kulutus_vesi > 0 ? reading.kulutus_vesi + ' m³' : '-'}</span></td>
+            <td>${(function() {
+                if (reading.calc_monthly === null || reading.calc_monthly === undefined) return '-';
+                var tt = 'Mittauspäiviä: ' + reading.calc_days_diff + ', kuukauden pv: ' + reading.calc_month_days + ', ' + reading.calc_daily_rate + ' m³/pv';
+                if (reading.calc_is_exact) {
+                    return '<span style="color:var(--text-2);font-size:0.88rem" title="' + tt + '">' + reading.calc_monthly + ' m³</span>';
+                }
+                return '<span style="color:#d97706;font-weight:600;font-size:0.88rem" title="' + tt + '">~' + reading.calc_monthly + ' m³</span><br><small style="color:var(--text-3);font-size:0.72rem">' + reading.calc_days_diff + '/' + reading.calc_month_days + ' pv</small>';
+            })()}</td>
             <td>${reading.muuta || '-'}</td>
             <td class="actions-cell">
                 <button onclick="water.editWaterReading(${reading.id})" class="success">✏️ Edit</button>

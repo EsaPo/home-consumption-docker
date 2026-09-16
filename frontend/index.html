@@ -211,6 +211,8 @@
                             <th>Flow Meter Reading</th>
                             <th>Heat Consumption</th>
                             <th>Flow Meter Consumption</th>
+                            <th>Calc. Monthly (Heat)</th>
+                            <th>Calc. Monthly (Flow)</th>
 			    <th>Other Information</th>
                             <th>Actions</th>
                         </tr>
@@ -320,6 +322,7 @@
                             <th>Reading Date</th>
                             <th>Electricity Reading</th>
                             <th>Electricity Consumption</th>
+                            <th>Calc. Monthly</th>
                             <th>Other Information</th>
                             <th>Actions</th>
                         </tr>
@@ -429,6 +432,7 @@
                             <th>Reading Date</th>
                             <th>Water Reading</th>
                             <th>Water Consumption</th>
+                            <th>Calc. Monthly</th>
                             <th>Other Information</th>
                             <th>Actions</th>
                         </tr>
@@ -567,10 +571,12 @@
                         <span class="settings-icon">📊</span>
                         <h2>Seurattavat kulutukset</h2>
                     </div>
-                    <p style="padding:0 1.5rem;color:var(--text-2);font-size:0.88rem;margin:0 0 12px">
-                        Valitse mitkä kulutukset näkyvät valikossa. Piilottaminen ei poista tietoja.
-                    </p>
-                    <button type="button" class="settings-btn" onclick="showConsumptionWizard({ mode: 'edit' })">📊 Valitse kulutukset</button>
+                    <div class="settings-form">
+                        <p style="color:var(--text-2);font-size:0.88rem;margin:0 0 4px">
+                            Valitse mitkä kulutukset näkyvät valikossa. Piilottaminen ei poista tietoja.
+                        </p>
+                        <button type="button" class="settings-btn" onclick="showConsumptionWizard({ mode: 'edit' })">📊 Valitse kulutukset</button>
+                    </div>
                 </div>
 
                 <div class="settings-card">

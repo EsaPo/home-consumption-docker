@@ -34,7 +34,7 @@ const electricity = {
         tableBody.innerHTML = '';
 
         if (electricityData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;">No electricity readings found. Add your first reading!</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:40px;">No electricity readings found. Add your first reading!</td></tr>';
             pagination.classList.add('hidden');
         } else {
             const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -70,6 +70,14 @@ const electricity = {
                     ? `<br><small style="color:var(--text-3)">Vanha: ${reading.vanha_lukema} kWh</small>`
                     : ''}</td>
             <td><span class="${consumptionClass}">${reading.kulutus_sahko > 0 ? reading.kulutus_sahko + ' kWh' : '-'}</span></td>
+            <td>${(function() {
+                if (reading.calc_monthly === null || reading.calc_monthly === undefined) return '-';
+                var tooltip = 'Mittauspäiviä: ' + reading.calc_days_diff + ', kuukauden pv: ' + reading.calc_month_days + ', ' + reading.calc_daily_rate + ' kWh/pv';
+                if (reading.calc_is_exact) {
+                    return '<span style="color:var(--text-2);font-size:0.88rem" title="' + tooltip + '">' + reading.calc_monthly + ' kWh</span>';
+                }
+                return '<span style="color:#d97706;font-weight:600;font-size:0.88rem" title="' + tooltip + '">~' + reading.calc_monthly + ' kWh</span><br><small style="color:var(--text-3);font-size:0.72rem">' + reading.calc_days_diff + '/' + reading.calc_month_days + ' pv</small>';
+            })()}</td>
             <td>${reading.muuta || '-'}</td>
             <td class="actions-cell">
                 <button onclick="electricity.editElectricityReading(${reading.id})" class="success">✏️ Edit</button>
