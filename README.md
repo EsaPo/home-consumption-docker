@@ -5,7 +5,7 @@ This app is designed for homes and allows you to track your electricity, heat an
 This app is created so that there is node.js backend by which your data is saved to SQLite database. Frontend is pure html file which communicate with this node.js backend.
 
 ### How to install
-First you have to install docker and docker compose plugin to your system. Next clone this repo and go to root folder. Then you have to modify env.template file and save it to backend folder with name `.env`. After that run docker compose command `docker compose up -d` and wait app to be installed.
+First you have to install docker and docker compose plugin to your system. Next clone this repo and go to root folder. Then you have to modify env.template file and save it to backend folder with name `.env`. Next run docker compose command `docker compose up -d` and wait app to be installed.
 
 After that app is ready to use and you can go to web browser and open the ip address http://127.0.0.1:2992.
 
